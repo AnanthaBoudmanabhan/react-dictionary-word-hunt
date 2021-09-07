@@ -31,13 +31,22 @@ function App() {
     const dictionaryApi = async () => {
       try {
         const data = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`);
+        console.log(data.data);
         setMeanings(data.data);
       }
       catch (err) {
         console.log(err);
       }
     };
-    dictionaryApi();
+
+    const indentifier = setTimeout(() => {
+      dictionaryApi();
+    }, 500);
+
+    return () => {
+      clearTimeout(indentifier);
+    }
+
   }, [word, category]);
 
   console.log(meanings);

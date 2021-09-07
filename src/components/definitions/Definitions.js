@@ -1,18 +1,17 @@
 import './Definitions.css';
 
 const Definitions = ({ word, category, meanings, lightMode }) => {
+    console.log("logging", meanings[0], word, category);
     return (
         <div className="meanings">
-            {console.log(meanings[0] && meanings[0].phonetics[0].audio)}
-
             {meanings[0] && word && category === "en" && (
-                <audio
-                    style={{ backgroundColor: "#fff", borderRadius: 10, width: '100%' }}
-                    src={meanings[0].phonetics[0] && meanings[0].phonetics[0].audio}
+                <video
+                    style={{ backgroundColor: "#fff", borderRadius: 10, height: "50px" }}
                     controls
                 >
-                    Your browser does not support the audio element.
-                </audio>
+                    <source src={meanings[0].phonetics[0] && meanings[0].phonetics[0].audio} type="audio/mpeg" />
+                    {/* Your browser does not support the audio element. */}
+                </video>
             )}
 
             {
@@ -20,7 +19,7 @@ const Definitions = ({ word, category, meanings, lightMode }) => {
                     meanings.map((mean) =>
                         mean.meanings.map(item => (
                             item.definitions.map(def => (
-                                <div className="singleMean" style={{ backgroundColor: lightMode ? '#3b5360' : 'white', color: lightMode ? 'white' : 'black' }}>
+                                <div className="singleMean" style={{ backgroundColor: lightMode ? '#3b5360' : 'white', color: lightMode ? 'white' : 'black' }} key={def.definition}>
                                     {console.log(def.definition)}
                                     <b>{def.definition}</b>
                                     <hr style={{ backgroundColor: 'black', width: '100%' }} />
